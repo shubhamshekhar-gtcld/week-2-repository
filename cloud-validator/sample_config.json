@@ -1,0 +1,83 @@
+{
+  "resources": [
+    {
+      "type": "VirtualMachine",
+      "name": "web-server-1",
+      "region": "us-east-1",
+      "instance_type": "t2.micro",
+      "tags": {
+        "env": "prod",
+        "owner": "platform"
+      },
+      "ssh_key_name": "team-key"
+    },
+    {
+      "type": "StorageBucket",
+      "name": "analytics-archive",
+      "region": "us-west-2",
+      "versioning_enabled": true,
+      "public_access_blocked": true,
+      "size_gb": 250
+    },
+    {
+      "type": "DatabaseInstance",
+      "name": "orders-db",
+      "region": "ap-south-1",
+      "engine": "postgres",
+      "engine_version": "15",
+      "storage_gb": 100,
+      "backup_enabled": true,
+      "deletion_protection": true
+    },
+    {
+      "type": "VirtualMachine",
+      "name": "   ",
+      "region": "us-east-1",
+      "instance_type": "t2.micro",
+      "tags": {
+        "env": "prod"
+      },
+      "ssh_key_name": "ops-key"
+    },
+    {
+      "type": "StorageBucket",
+      "name": "Invalid_Bucket",
+      "region": "invalid-region",
+      "versioning_enabled": false,
+      "public_access_blocked": false,
+      "size_gb": -10
+    },
+    {
+      "type": "DatabaseInstance",
+      "name": "bad-db",
+      "region": "eu-west-1",
+      "engine": "postgres",
+      "engine_version": "99",
+      "storage_gb": 20,
+      "backup_enabled": true,
+      "deletion_protection": false
+    },
+    {
+      "type": "DatabaseInstance",
+      "name": "risky-db",
+      "region": "us-east-1",
+      "engine": "mysql",
+      "engine_version": "8.0",
+      "storage_gb": 50,
+      "backup_enabled": false,
+      "deletion_protection": true
+    },
+    {
+      "type": "VirtualMachine",
+      "name": "tag-test",
+      "region": "us-east-1",
+      "instance_type": "m5.large",
+      "tags": {
+        "env": "prod",
+        "owner": "platform",
+        "invalid!key": "value"
+      },
+      "ssh_key_name": "prod-key"
+    }
+  ]
+}
