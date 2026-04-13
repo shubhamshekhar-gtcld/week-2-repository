@@ -46,7 +46,7 @@ print(vm.model_dump())
 
 ## CLI Usage
 
-Activate the virtual environment:
+Bash:
 
 ```bash
 source venv/Scripts/activate
@@ -54,17 +54,23 @@ source venv/Scripts/activate
 
 Text output:
 
+Bash:
+
 ```bash
 cloud-validate --file sample_config.json --format text
 ```
 
 JSON output:
 
+Bash:
+
 ```bash
 cloud-validate --file sample_config.json --format json
 ```
 
 Run the automated test suite:
+
+Bash:
 
 ```bash
 python -m pytest
