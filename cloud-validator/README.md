@@ -46,11 +46,13 @@ print(vm.model_dump())
 
 ## CLI Usage
 
+Activate the virtual environment:
+
+```bash
+source venv/Scripts/activate
+```
+
 Text output:
-
-
-./venv/Scripts/activate (bash)
-
 
 ```bash
 cloud-validate --file sample_config.json --format text
