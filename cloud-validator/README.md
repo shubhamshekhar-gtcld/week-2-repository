@@ -48,9 +48,9 @@ print(vm.model_dump())
 
 Text output:
 
-```bash
-./venv/Scripts/activate
-```
+
+./venv/Scripts/activate (bash)
+
 
 ```bash
 cloud-validate --file sample_config.json --format text
