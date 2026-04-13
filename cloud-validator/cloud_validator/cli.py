@@ -19,7 +19,7 @@ FALLBACK_PASS_SYMBOL = "[PASS]" #fallback text if terminal doesn't support pass 
 FALLBACK_FAIL_SYMBOL = "[FAIL]" #fallback text if terminal doesn't support fail symbol
 
 
-def parse_args() -> argparse.Namespace: #Namespace is a simple class used to store attributes, in this case the command line arguments
+def parse_args() -> argparse.Namespace: #Namespace is a simple class used to store attributes, in this case the command line arguments, #argparse.Namespace is simple container object to store and provide access to the command-line-arguments  
     parser = argparse.ArgumentParser(description="Validate cloud resource JSON files") #argument parser object to handle command line arguments, it provides help messages and error handling 
     parser.add_argument("--file", required=True, help="Path to config JSON file") #user have to provide --file sample_config.json, argument is mandatory,help is description of the argument that will be shown when user runs the script with --help flag
     parser.add_argument(
@@ -40,10 +40,10 @@ def load_config(file_path: str) -> CloudConfig: #load the JSON configuration fil
         raise ValueError("Top-level JSON document must be an object")
     if "resources" not in data: #resources is the expected top-level key in the JSON file, if it's missing, we raise a ValueError to indicate that the configuration is invalid
         raise ValueError("Top-level field 'resources' is required")
-    if not isinstance(data["resources"], list): 
+    if not isinstance(data["resources"], list): #the value associated with the "resources" key must be a list, if it's not, we raise a ValueError to indicate that the configuration is invalid, this ensures that the validation logic can iterate over the resources correctly 
         raise ValueError("Field 'resources' must be a list")
 
-    return {"resources": data["resources"]}
+    return {"resources": data["resources"]} #this line constructs and returns a CloudConfig dictionary containing only the "resources" key and its associated list of resources, this ensures that the returned configuration is in the expected format for the validation logic to process, thus normalizing the data  
 
 
 def build_summary(report: list[dict[str, Any]]) -> dict[str, int]: #function to count the no of passed and failed validations    
@@ -69,7 +69,7 @@ def get_status_prefix(status: str) -> str: #function to get the appropriate symb
         preferred.encode(encoding)
         return preferred
     except UnicodeEncodeError:
-        return fallback
+        return fallback #use simple text if unicode fails
 
 
 def render_text_report(report: list[dict[str, Any]]) -> str: #function to generate a human-readable text report based on the validation results, it includes symbols for pass/fail status and a summary of the results at the end

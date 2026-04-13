@@ -10,13 +10,13 @@ from .models import DatabaseInstance, StorageBucket, VirtualMachine
 from .types import CloudConfig, ResourceType, ValidationStatus
 
 RESOURCE_MODELS = { #import structure and enums from types.py  
-    ResourceType.VIRTUAL_MACHINE.value: VirtualMachine, #dictionary mapping resource type string to their model class, used instead of if else for more cleaner, scalable, extensible code   
+    ResourceType.VIRTUAL_MACHINE.value: VirtualMachine, #dictionary mapping resource type string to their model class, used instead of if else for more cleaner, scalable, extensible code for eg if we are given a resource type which model should validate it, eg resource_type="VirtualMachine" model_cls = RESOURCE_MODELS[resource_type], model_cls = VirtualMachine   
     ResourceType.STORAGE_BUCKET.value: StorageBucket,
     ResourceType.DATABASE_INSTANCE.value: DatabaseInstance,
 }
 
 
-def _format_pydantic_errors(exc: ValidationError) -> list[str]: #converts complex pydantic error to human readable errors 
+def _format_pydantic_errors(exc: ValidationError) -> list[str]: #converts complex pydantic error to human readable errors, ValidationError is exception raised by pydantic model when validation fails    
     errors: list[str] = [] #empty list to store formatted error msgs 
     for error in exc.errors(include_url=False): #exc.errors() returns list of error dicts, include_url = false to exclude error type URLS from output 
         location = error.get("loc", ()) #to extract which field caused the error 
@@ -31,7 +31,7 @@ def validate_resources(config: CloudConfig) -> list[dict[str, Any]]: #main funct
 
     for index, resource_data in enumerate(config["resources"], start=1): #enumerate to get both index and resource data, start=1 to make index 1 based for better readability in reports
         resource_type = resource_data.get("type")
-        resource_name = resource_data.get("name") or f"resource-{index}" #if name is not provided, use a default name based on index for better error reporting and identification in the report
+        resource_name = resource_data.get("name") or f"resource-{index}" #if name is not provided, use a default name based on index for better error reporting and identification in the report 
 
         if resource_type not in RESOURCE_MODELS:
             report.append(
